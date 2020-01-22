@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Lookup Weather Page</h1>
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search Weather Details by Zip</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <input type="text" name="zip" value="Enter Zip...">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="alert alert-success" role="alert">
+        The temperature (F) is: 84.32 degrees.
+    </div>
+{% endblock content %}

@@ -6,10 +6,11 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    TemplateView
 )
 from .models import Post
-
+from blog.forms import LookupWeatherForm
 
 def home(request):
     context = {
@@ -76,5 +77,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})
+def lookup_weather(request):
+    return render(request, 'blog/lookup_weather.html', {'title': 'Lookup Weather'})
+
+class LookUpWeatherView(TemplateView):
+    template_name = 'blog/lookup_weather.html'
+
+    def get(self, request):
+        form = LookupWeatherForm()
+        return render(request, self.template_name, {'form':form})
+    
+    def post(self, request):
+         form = LookUpWeatherForm(request.POST)
+         print(form)
